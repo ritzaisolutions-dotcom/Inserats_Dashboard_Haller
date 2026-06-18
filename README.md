@@ -17,6 +17,8 @@ Set in `.env.local`:
 
 Run migration: `supabase/migrations/001_dashboard_schema.sql` in Supabase SQL Editor.
 
+Demo HITL-Leads (Freigabe-Warteschlange): `supabase/seed_demo_hitl_leads.sql` — 4 Test-Bewerber unter `/notifications`.
+
 Create a staff user in Supabase Auth (Email + Password).
 
 ## Dev

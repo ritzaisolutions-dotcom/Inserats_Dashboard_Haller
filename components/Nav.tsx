@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { Bell, Calendar, Home, LogOut } from "lucide-react";
 import { useEffect, useState } from "react";
+import { HallerLogo } from "@/components/HallerLogo";
 import { createClient } from "@/lib/supabase/client";
 
 type NavProps = {
@@ -37,9 +38,8 @@ export function Nav({ unreadCount = 0 }: NavProps) {
 
   return (
     <aside className="fixed left-0 top-0 flex h-screen w-[220px] flex-col border-r border-dash-border bg-dash-card">
-      <div className="border-b border-dash-border p-5">
-        <p className="text-lg font-bold text-white">Haller</p>
-        <p className="text-xs text-dash-muted">Verwaltungssystem</p>
+      <div className="border-b border-dash-border p-4">
+        <HallerLogo variant="sidebar" />
       </div>
 
       <nav className="flex-1 space-y-1 p-3">

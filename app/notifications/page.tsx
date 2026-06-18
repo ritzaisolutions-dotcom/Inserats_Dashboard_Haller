@@ -23,6 +23,7 @@ export default function NotificationsPage() {
         .from("leads")
         .select("*")
         .eq("status", "analyse_abgeschlossen")
+        .is("entscheidung_at", null)
         .not("mindestanforderung_ok", "is", null)
         .order("dokumente_eingereicht_at", { ascending: false })
         .limit(50),

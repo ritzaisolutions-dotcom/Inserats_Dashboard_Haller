@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
+import { HallerLogo } from "@/components/HallerLogo";
 import { createClient } from "@/lib/supabase/client";
 
 export default function LoginPage() {
@@ -36,10 +37,8 @@ export default function LoginPage() {
   return (
     <div className="flex min-h-screen items-center justify-center px-4">
       <div className="w-full max-w-md rounded border border-dash-border bg-dash-card p-8 shadow-xl">
-        <h1 className="mb-1 text-xl font-bold text-white">
-          Haller Immobilienberatung GmbH
-        </h1>
-        <p className="mb-8 text-sm text-dash-muted">Verwaltungssystem — Anmeldung</p>
+        <HallerLogo variant="login" />
+        <p className="mb-8 text-center text-sm text-dash-muted">Verwaltungssystem — Anmeldung</p>
 
         {!process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ? (
           <p className="mb-4 rounded border border-dash-warning/50 bg-dash-warning/10 p-3 text-xs text-dash-warning">
