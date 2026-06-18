@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --dash-bg: #07101e;
+  --dash-card: #0d1f3c;
+  --dash-border: #1a3a6a;
+  --dash-accent: #3b82f6;
+  --dash-success: #22c55e;
+  --dash-warning: #f59e0b;
+  --dash-danger: #ef4444;
+  --dash-text: #e2eaf8;
+  --dash-muted: #4a6080;
+}
+
+body {
+  background-color: var(--dash-bg);
+  color: var(--dash-text);
+}
