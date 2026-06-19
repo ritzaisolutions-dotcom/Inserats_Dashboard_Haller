@@ -1,0 +1,36 @@
+name: Deploy Embero Landing Page
+
+# Triggered on every push to the feature branch that touches the landing page
+on:
+  push:
+    branches:
+      - claude/embero-shopify-redesign-4ebswr
+      - main
+    paths:
+      - 'demos/embero.store/landing-page-9/**'
+  # Also allows manual trigger from GitHub Actions tab
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    name: Deploy to Vercel
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Vercel CLI
+        run: npm install --global vercel@latest
+
+      # On first run: creates a new Vercel project named "embero-landing-page"
+      # On subsequent runs: reuses the project (Vercel matches by name)
+      - name: Deploy to Vercel (production)
+        working-directory: demos/embero.store/landing-page-9
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: |
+          vercel deploy \
+            --yes \
+            --prod \
+            --token "$VERCEL_TOKEN" \
+            --scope ritzaisolutions-6158s-projects
