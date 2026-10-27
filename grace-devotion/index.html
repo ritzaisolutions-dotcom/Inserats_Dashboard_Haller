@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Grace & Devotion – Handcrafted Rosaries</title>
+  <meta name="description" content="Handcrafted rosaries for quiet moments of prayer. Choose your rosary and order securely.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --cream: #F8F4EE;
+      --cream-dark: #EDE6DA;
+      --red: #8B1A2B;          /* stronger rich red – buttons, hero */
+      --red-hover: #A32035;
+      --cherry: #5C1A2A;       /* brand dark cherry – headlines, footer */
+      --gold: #C9A227;
+      --gold-soft: #D4AF37;
+      --text: #2C2420;
+      --muted: #6B5E56;
+      --line: rgba(92, 26, 42, 0.14);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      font-weight: 300;
+      background: var(--cream);
+      color: var(--text);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+    h1, h2, h3 { font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 500; }
+
+    /* Header */
+    header {
+      background: var(--cream-dark); /* matches the logo file's background */
+      text-align: center;
+      padding: 0.4rem 1rem;
+    }
+    header img { height: 110px; width: auto; display: block; margin: 0 auto; -webkit-mask-image: radial-gradient(closest-side, #000 82%, transparent 100%); mask-image: radial-gradient(closest-side, #000 82%, transparent 100%); }
+
+    /* Banner after checkout */
+    .banner { display: none; text-align: center; padding: 0.9rem 1rem; font-size: 0.95rem; }
+    .banner.show { display: block; }
+    .banner.ok { background: var(--cherry); color: var(--cream); }
+    .banner.warn { background: var(--cream-dark); color: var(--cherry); }
+
+    /* Hero */
+    .hero {
+      background: radial-gradient(120% 90% at 50% 0%, #A32035 0%, var(--red) 55%, #6E1422 100%);
+      color: var(--cream);
+      text-align: center;
+      padding: 3.5rem 1.5rem 4rem;
+    }
+    .eyebrow {
+      font-size: 0.72rem; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--gold-soft); margin-bottom: 1.1rem; font-weight: 400;
+    }
+    .hero h1 {
+      font-size: clamp(2.6rem, 9vw, 4.6rem);
+      line-height: 1.02; max-width: 15ch; margin: 0 auto 1.2rem;
+    }
+    .hero p { max-width: 34ch; margin: 0 auto 2rem; opacity: 0.88; font-size: 1.02rem; }
+    .rule { width: 56px; height: 1px; background: var(--gold-soft); margin: 0 auto 1.6rem; }
+
+    .btn {
+      display: inline-block; background: var(--red); color: #fff; border: 0; cursor: pointer;
+      padding: 1rem 2.2rem; font: 400 0.78rem 'Inter', sans-serif; letter-spacing: 2px; text-transform: uppercase;
+      text-decoration: none; transition: background .25s, transform .25s;
+    }
+    .btn:hover { background: var(--red-hover); transform: translateY(-1px); }
+    .btn.light { background: var(--cream); color: var(--red); }
+    .btn.light:hover { background: #fff; }
+    .btn.block { width: 100%; }
+    .btn[disabled] { opacity: .6; cursor: wait; transform: none; }
+
+    /* Collection */
+    section.collection { padding: 4rem 1rem 3rem; max-width: 1120px; margin: 0 auto; }
+    .section-title { text-align: center; font-size: clamp(2rem, 6vw, 3rem); color: var(--cherry); margin-bottom: .4rem; }
+    .section-sub { text-align: center; color: var(--muted); margin-bottom: 2.4rem; font-size: .95rem; }
+    .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.9rem; }
+    @media (min-width: 900px) { .grid { grid-template-columns: repeat(3, 1fr); gap: 1.8rem; } }
+
+    .card {
+      background: #fff; display: flex; flex-direction: column;
+      box-shadow: 0 6px 24px rgba(92, 26, 42, 0.07);
+      transition: transform .35s, box-shadow .35s;
+    }
+    .card:hover { transform: translateY(-5px); box-shadow: 0 14px 34px rgba(92, 26, 42, 0.13); }
+    .thumb {
+      aspect-ratio: 1 / 1; background: radial-gradient(circle at 50% 40%, #fbf8f3, var(--cream-dark));
+      display: flex; align-items: center; justify-content: center; overflow: hidden;
+    }
+    .thumb svg { width: 74%; height: auto; filter: drop-shadow(0 2px 3px rgba(92,26,42,.28)); }
+    .thumb img { width: 100%; height: 100%; object-fit: cover; }
+    .card-body { padding: 1rem 1rem 1.2rem; display: flex; flex-direction: column; flex: 1; }
+    .card h3 { font-size: 1.45rem; line-height: 1.1; color: var(--cherry); margin-bottom: .35rem; }
+    .card p { color: var(--muted); font-size: .85rem; line-height: 1.5; margin-bottom: .8rem; flex: 1; }
+    .price { color: var(--gold); font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: 1.45rem; margin-bottom: .8rem; }
+    .card .btn { padding: .85rem 1rem; text-align: center; font-size: .72rem; }
+    @media (min-width: 900px) { .card-body { padding: 1.4rem 1.5rem 1.6rem; } .card h3 { font-size: 1.8rem; } .card p { font-size: .92rem; } }
+
+    /* Trust */
+    .trust { background: var(--cream-dark); padding: 2.6rem 1.2rem; }
+    .trust ul { list-style: none; max-width: 900px; margin: 0 auto; display: grid; gap: 1.4rem; text-align: center; }
+    @media (min-width: 700px) { .trust ul { grid-template-columns: repeat(3, 1fr); } }
+    .trust strong { display: block; font-family: 'Cormorant Garamond', serif; font-weight: 500; font-size: 1.35rem; color: var(--cherry); }
+    .trust span { font-size: .85rem; color: var(--muted); }
+
+    footer { background: var(--cherry); color: var(--cream); text-align: center; padding: 2.4rem 1rem calc(2.4rem + env(safe-area-inset-bottom)); font-size: .85rem; }
+    footer a { color: var(--gold-soft); text-decoration: none; }
+
+    /* Order sheet */
+    .overlay {
+      position: fixed; inset: 0; background: rgba(44, 36, 32, .62); z-index: 1000;
+      display: none; align-items: flex-end; justify-content: center;
+    }
+    .overlay.open { display: flex; }
+    .sheet {
+      background: var(--cream); width: 100%; max-width: 520px; max-height: 94vh; overflow-y: auto;
+      padding: 1.8rem 1.4rem calc(1.6rem + env(safe-area-inset-bottom)); position: relative;
+      border-radius: 14px 14px 0 0; animation: up .28s ease;
+    }
+    @keyframes up { from { transform: translateY(40px); opacity: 0; } to { transform: none; opacity: 1; } }
+    @media (min-width: 600px) { .overlay { align-items: center; } .sheet { border-radius: 4px; padding: 2.4rem 2.2rem; } }
+    .close { position: absolute; top: .7rem; right: .9rem; background: none; border: 0; font-size: 1.9rem; line-height: 1; color: var(--muted); cursor: pointer; padding: .3rem .5rem; }
+    .sheet h3 { font-size: 2rem; color: var(--cherry); margin-bottom: .2rem; }
+    .sheet .lead { color: var(--muted); font-size: .9rem; margin-bottom: 1.3rem; }
+    label { display: block; font-size: .72rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--cherry); margin: 1rem 0 .35rem; font-weight: 400; }
+    input, select, textarea {
+      width: 100%; font: 400 1rem 'Inter', sans-serif; color: var(--text);
+      background: #fff; border: 1px solid var(--line); padding: .8rem .9rem; border-radius: 2px;
+    }
+    input:focus, select:focus, textarea:focus { outline: 2px solid var(--red); outline-offset: 0; border-color: var(--red); }
+    textarea { resize: vertical; min-height: 72px; }
+    .row { display: flex; gap: .8rem; align-items: end; }
+    .row > div { flex: 1; }
+    .qty { display: flex; border: 1px solid var(--line); background: #fff; width: 100%; }
+    .qty button { width: 46px; background: none; border: 0; font-size: 1.3rem; color: var(--red); cursor: pointer; }
+    .qty input { border: 0; text-align: center; padding: .8rem 0; }
+    .qty input:focus { outline: none; }
+    .total { display: flex; justify-content: space-between; align-items: baseline; margin: 1.5rem 0 1rem; padding-top: 1rem; border-top: 1px solid var(--line); }
+    .total span { color: var(--muted); font-size: .85rem; }
+    .total strong { font-family: 'Cormorant Garamond', serif; font-size: 1.9rem; color: var(--red); font-weight: 600; }
+    .fine { font-size: .75rem; color: var(--muted); text-align: center; margin-top: .9rem; }
+    .error { color: #b3261e; font-size: .85rem; margin-top: .8rem; display: none; }
+    .error.show { display: block; }
+    .hp { position: absolute; left: -9999px; }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="logo.jpg" alt="Grace & Devotion – Handgefertigte Rosenkränze">
+  </header>
+
+  <div class="banner ok" id="bannerOk">Thank you – your order is confirmed. A receipt is on its way to your inbox.</div>
+  <div class="banner warn" id="bannerCancel">Checkout cancelled – your rosary is still waiting for you below.</div>
+
+  <section class="hero">
+    <p class="eyebrow">As seen on Instagram</p>
+    <h1>Handcrafted for quiet moments of prayer</h1>
+    <div class="rule"></div>
+    <p>Six rosaries, each made by hand with care, faith and attention to detail.</p>
+    <a href="#collection" class="btn light">Choose your rosary</a>
+  </section>
+
+  <section class="collection" id="collection">
+    <h2 class="section-title">The Collection</h2>
+    <p class="section-sub">Tap a rosary to order. Made with devotion.</p>
+    <div class="grid" id="grid"></div>
+  </section>
+
+  <section class="trust">
+    <ul>
+      <li><strong>Made by hand</strong><span>Every rosary is crafted individually.</span></li>
+      <li><strong>Gift ready</strong><span>Beautifully packed, with your personal note.</span></li>
+      <li><strong>Secure payment</strong><span>Card, Apple Pay &amp; more via Stripe.</span></li>
+    </ul>
+  </section>
+
+  <footer>
+    <p>© 2026 Grace &amp; Devotion · Handcrafted Rosaries</p>
+    <p style="margin-top:.5rem"><a href="https://instagram.com/" rel="noopener">Instagram</a> · <a href="#">Imprint</a> · <a href="#">Privacy</a> · <a href="#">Terms</a></p>
+  </footer>
+
+  <!-- Order sheet -->
+  <div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
+    <form class="sheet" id="orderForm" novalidate>
+      <button type="button" class="close" id="closeBtn" aria-label="Close">&times;</button>
+      <h3 id="sheetTitle">Your order</h3>
+      <p class="lead">Shipping address and payment follow on the next, secure page.</p>
+
+      <label for="product">Rosary</label>
+      <select id="product" name="product"></select>
+
+      <div class="row">
+        <div>
+          <label for="qty">Quantity</label>
+          <div class="qty">
+            <button type="button" id="minus" aria-label="Fewer">&minus;</button>
+            <input id="qty" name="qty" type="number" min="1" max="10" value="1" inputmode="numeric">
+            <button type="button" id="plus" aria-label="More">+</button>
+          </div>
+        </div>
+      </div>
+
+      <label for="name">Full name</label>
+      <input id="name" name="name" autocomplete="name" required>
+
+      <label for="email">Email</label>
+      <input id="email" name="email" type="email" autocomplete="email" required>
+
+      <label for="gift">Gift note <span style="text-transform:none;letter-spacing:0;color:var(--muted)">(optional)</span></label>
+      <textarea id="gift" name="gift" maxlength="300" placeholder="A few words to include with the rosary"></textarea>
+
+      <input class="hp" type="text" id="website" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+      <div class="total"><span>Total (shipping added at checkout)</span><strong id="total">€0</strong></div>
+      <button class="btn block" id="payBtn" type="submit">Continue to secure payment</button>
+      <p class="error" id="error"></p>
+      <p class="fine">🔒 Payment is processed by Stripe. We never see your card details.</p>
+    </form>
+  </div>
+
+  <script>
+    // Prices here are for display only – the server (api/checkout.js) is the source of truth.
+    // To use real photos, set `photo: 'images/bordeaux.jpg'` on a product.
+    const PRODUCTS = [
+      { id: 'bordeaux-classic', name: 'Bordeaux Classic', price: 89, desc: 'Deep cherry-red beads with delicate gold accents.',    bead: '#8B1A2B', gold: '#C9A227' },
+      { id: 'gold-devotion',    name: 'Gold Devotion',    price: 95, desc: 'Gold-toned beads, crafted with faith and care.',        bead: '#C9A227', gold: '#8B1A2B' },
+      { id: 'peace-collection', name: 'Peace Collection', price: 79, desc: 'Soft pearl beads for still moments and heartfelt prayer.', bead: '#EFE6D6', gold: '#C9A227' },
+      { id: 'rose-garden',      name: 'Rose Garden',      price: 85, desc: 'Blush rose-quartz tones, gentle and timeless.',         bead: '#D9A5A8', gold: '#C9A227' },
+      { id: 'midnight-vigil',   name: 'Midnight Vigil',   price: 92, desc: 'Deep garnet beads for evening prayer.',                 bead: '#4A0E1C', gold: '#D4AF37' },
+      { id: 'first-communion',  name: 'First Communion',  price: 69, desc: 'Pure white beads – a keepsake for a first blessing.',   bead: '#FBF8F2', gold: '#C9A227' }
+    ];
+
+    const $ = id => document.getElementById(id);
+    const eur = n => '€' + n.toFixed(2).replace(/\.00$/, '');
+
+    // Simple rosary illustration (placeholder until product photos exist)
+    function rosarySVG(p, i) {
+      const g = 'g' + i, cx = 100, cy = 88, r = 62, beads = [];
+      for (let k = 0; k < 24; k++) {
+        const a = (k / 24) * Math.PI * 2 - Math.PI / 2;
+        const big = k % 6 === 0;
+        if (k === 12) continue; // opening for the drop
+        beads.push(`<circle cx="${(cx + r * Math.cos(a)).toFixed(1)}" cy="${(cy + r * Math.sin(a)).toFixed(1)}" r="${big ? 6 : 4.6}" fill="url(#${big ? g + 'g' : g})" stroke="${p.bead}" stroke-opacity=".9" stroke-width=".6"/>`);
+      }
+      const drop = [150, 164, 178].map((y, k) => `<circle cx="100" cy="${y}" r="4.6" fill="url(#${g})" stroke="${p.bead}" stroke-width=".6"/>`).join('');
+      return `<svg viewBox="0 0 200 250" aria-hidden="true">
+        <defs>
+          <radialGradient id="${g}" cx="35%" cy="30%" r="75%"><stop offset="0" stop-color="#fff" stop-opacity=".75"/><stop offset=".35" stop-color="${p.bead}"/><stop offset="1" stop-color="${p.bead}" stop-opacity=".78"/></radialGradient>
+          <radialGradient id="${g}g" cx="35%" cy="30%" r="75%"><stop offset="0" stop-color="#fff" stop-opacity=".8"/><stop offset=".4" stop-color="${p.gold}"/><stop offset="1" stop-color="#8a6d12"/></radialGradient>
+        </defs>
+        <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${p.gold}" stroke-width=".8" opacity=".6"/>
+        <line x1="100" y1="${cy + r}" x2="100" y2="190" stroke="${p.gold}" stroke-width=".8" opacity=".6"/>
+        ${beads.join('')}${drop}
+        <circle cx="100" cy="150" r="0"/>
+        <g fill="url(#${g}g)"><rect x="97" y="194" width="6" height="38" rx="1.5"/><rect x="87" y="203" width="26" height="6" rx="1.5"/></g>
+      </svg>`;
+    }
+
+    const grid = $('grid'), select = $('product');
+    PRODUCTS.forEach((p, i) => {
+      const art = p.photo ? `<img src="${p.photo}" alt="${p.name}" loading="lazy">` : rosarySVG(p, i);
+      grid.insertAdjacentHTML('beforeend', `
+        <article class="card">
+          <div class="thumb">${art}</div>
+          <div class="card-body">
+            <h3>${p.name}</h3>
+            <p>${p.desc}</p>
+            <div class="price">${eur(p.price)}</div>
+            <button class="btn" type="button" data-id="${p.id}">Order now</button>
+          </div>
+        </article>`);
+      select.insertAdjacentHTML('beforeend', `<option value="${p.id}">${p.name} – ${eur(p.price)}</option>`);
+    });
+
+    // Order sheet
+    const overlay = $('overlay'), qty = $('qty'), errBox = $('error');
+    const find = id => PRODUCTS.find(p => p.id === id);
+    function updateTotal() {
+      const q = Math.min(10, Math.max(1, parseInt(qty.value, 10) || 1));
+      $('total').textContent = eur(find(select.value).price * q);
+    }
+    function openSheet(id) { select.value = id; qty.value = 1; errBox.classList.remove('show'); updateTotal(); overlay.classList.add('open'); document.body.style.overflow = 'hidden'; }
+    function closeSheet() { overlay.classList.remove('open'); document.body.style.overflow = ''; }
+    grid.addEventListener('click', e => { const b = e.target.closest('button[data-id]'); if (b) openSheet(b.dataset.id); });
+    $('closeBtn').addEventListener('click', closeSheet);
+    overlay.addEventListener('click', e => { if (e.target === overlay) closeSheet(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSheet(); });
+    select.addEventListener('change', updateTotal);
+    qty.addEventListener('input', updateTotal);
+    $('minus').addEventListener('click', () => { qty.value = Math.max(1, (parseInt(qty.value, 10) || 1) - 1); updateTotal(); });
+    $('plus').addEventListener('click', () => { qty.value = Math.min(10, (parseInt(qty.value, 10) || 1) + 1); updateTotal(); });
+
+    // Carry the Instagram campaign tags through to the Stripe order
+    const params = new URLSearchParams(location.search);
+    const utm = {};
+    ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content'].forEach(k => { if (params.get(k)) utm[k] = params.get(k).slice(0, 100); });
+
+    $('orderForm').addEventListener('submit', async e => {
+      e.preventDefault();
+      const btn = $('payBtn');
+      const name = $('name').value.trim(), email = $('email').value.trim();
+      const show = msg => { errBox.textContent = msg; errBox.classList.add('show'); };
+      errBox.classList.remove('show');
+      if (name.length < 2) return show('Please enter your name.');
+      if (!/^\S+@\S+\.\S+$/.test(email)) return show('Please enter a valid email address.');
+      btn.disabled = true; btn.textContent = 'Opening secure checkout…';
+      try {
+        const res = await fetch('/api/checkout', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            product: select.value, qty: parseInt(qty.value, 10) || 1,
+            name, email, gift: $('gift').value.trim(), website: $('website').value, utm
+          })
+        });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok || !data.url) throw new Error(data.error || 'Checkout is not available right now.');
+        location.href = data.url;
+      } catch (err) {
+        show(err.message + ' Please try again or message us on Instagram.');
+        btn.disabled = false; btn.textContent = 'Continue to secure payment';
+      }
+    });
+
+    // Return from Stripe
+    const status = params.get('status');
+    if (status === 'success') $('bannerOk').classList.add('show');
+    if (status === 'cancel') $('bannerCancel').classList.add('show');
+  </script>
+</body>
+</html>
